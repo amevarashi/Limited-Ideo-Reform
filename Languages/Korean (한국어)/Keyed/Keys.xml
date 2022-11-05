@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <val_needPointReform_t>개혁에 필요한 포인트 (시작값)</val_needPointReform_t>
+  <val_needPointReform_d>처음 개혁에 필요한 포인트 값 입니다.</val_needPointReform_d>
+
+  <val_needPointReformStep_t>개혁에 필요한 포인트 증가치</val_needPointReformStep_t>
+  <val_needPointReformStep_d>개혁을 할 때마다 필요한 포인트가 증가하는 양을 조정합니다.</val_needPointReformStep_d>
+  
+  <val_maxMemeCount_t>최대 가르침 수</val_maxMemeCount_t>
+  <val_maxMemeCount_d>이념이 가질 수 있는 최대 가르침 수 제한 입니다.</val_maxMemeCount_d>
+  
+  <val_memeSelectCount_t>가르침 선택지 수</val_memeSelectCount_t>
+  <val_memeSelectCount_d>이념 개혁 시, 랜덤하게 선택지로 등장하는 가르침의 수 입니다.</val_memeSelectCount_d>
+  
+  <val_preceptSelectCount_t>규율 수정가능 수</val_preceptSelectCount_t>
+  <val_preceptSelectCount_d>이념 개혁 시, 랜덤하게 표시되는 수정 가능한 규율 수 입니다.</val_preceptSelectCount_d>
+
+  <val_getPoint_t>치트 : 개혁 포인트 무한획득</val_getPoint_t>
+  <val_getPoint_d></val_getPoint_d>
+
+
+
+</LanguageData>

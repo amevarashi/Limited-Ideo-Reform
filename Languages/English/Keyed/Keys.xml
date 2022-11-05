@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <val_needPointReform_t>Points required for reform (starting value)</val_needPointReform_t>
+  <val_needPointReform_d>This is the point value required for the first reform.</val_needPointReform_d>
+
+  <val_needPointReformStep_t>Point Increment Value for Reform</val_needPointReformStep_t>
+  <val_needPointReformStep_d>Adjusts the amount of points needed to increase with each reform.</val_needPointReformStep_d>
+  
+  <val_maxMemeCount_t>maximum number of memes</val_maxMemeCount_t>
+  <val_maxMemeCount_d>This is the maximum number of memes an ideology can have.</val_maxMemeCount_d>
+
+  <val_memeSelectCount_t>number of memes when reform</val_memeSelectCount_t>
+  <val_memeSelectCount_d>The number of memes that appear randomly as during ideological reform.</val_memeSelectCount_d>
+
+  <val_preceptSelectCount_t>Precepts Modifiable Number</val_preceptSelectCount_t>
+  <val_preceptSelectCount_d>During ideological reform, the number of modifiable Precepts displayed at random.</val_preceptSelectCount_d>
+
+  <val_getPoint_t>Cheat: Get Reform Points</val_getPoint_t>
+  <val_getPoint_d></val_getPoint_d>
+  
+  
+
+</LanguageData>
