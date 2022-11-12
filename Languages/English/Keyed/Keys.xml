@@ -15,9 +15,9 @@
   <val_preceptSelectCount_t>Precepts Modifiable Number</val_preceptSelectCount_t>
   <val_preceptSelectCount_d>During ideological reform, the number of modifiable Precepts displayed at random.</val_preceptSelectCount_d>
 
-  <val_getPoint_t>Cheat: Get Reform Points</val_getPoint_t>
-  <val_getPoint_d></val_getPoint_d>
-  
-  
+  <val_rerollsPerStage_t>Number of rerolls per stage</val_rerollsPerStage_t>
+  <val_rerollsPerStage_d>The number of available meme rerolls. Spent rerolls resets after a successful reform.</val_rerollsPerStage_d>
+
+  <LIR_Reroll>Reroll ({0})</LIR_Reroll>
 
 </LanguageData>
