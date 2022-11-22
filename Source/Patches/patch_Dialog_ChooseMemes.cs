@@ -9,6 +9,20 @@ namespace IdeoReformLimited.Patches
 	[HarmonyPatch(typeof(Dialog_ChooseMemes))]
 	public static class patch_Dialog_ChooseMemes
 	{
+		public static MemeCategory CurrentMemeCategory { get; private set; }
+
+		/// <summary>
+		/// Capture meme category for <see cref="ModWidgets.RerollButton(Rect, string, bool, bool, bool, TextAnchor?)"/>
+		/// </summary>
+		/// <param name="___memeCategory">Private instance attribute memeCategory, provided by Harmony</param>
+		[HarmonyPatch(nameof(Dialog_ChooseMemes.DoWindowContents))]
+		[HarmonyPrefix]
+		public static void DoWindowContentsPrefix(MemeCategory ___memeCategory)
+		{
+			CurrentMemeCategory = ___memeCategory;
+		}
+
+
 		/// <summary>
 		/// Replace "Randomize" button with a "Reroll" one
 		/// </summary>

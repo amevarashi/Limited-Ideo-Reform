@@ -22,7 +22,7 @@ namespace IdeoReformLimited
 		/// </summary>
 		public static bool RerollButton(Rect rect, string label, bool drawBackground = true, bool doMouseoverSound = true, bool active = true, TextAnchor? overrideTextAnchor = null)
 		{
-			if (!InGameWithFluidIdeo)
+			if (!InGameWithFluidIdeo || Patches.patch_Dialog_ChooseMemes.CurrentMemeCategory == RimWorld.MemeCategory.Structure)
 			{
 				return Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active, overrideTextAnchor);
 			}
