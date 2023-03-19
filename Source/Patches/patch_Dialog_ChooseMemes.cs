@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,7 +11,18 @@ namespace IdeoReformLimited.Patches
 	[HarmonyPatch(typeof(Dialog_ChooseMemes))]
 	public static class Patch_Dialog_ChooseMemes
 	{
+		private static List<MemeDef> limitedMemesCache;
 		public static MemeCategory CurrentMemeCategory { get; private set; }
+
+		/// <summary>
+		/// Drop cache when new window created. Can't find a method to patch on close, this window doesn't override any [Pre/Post]Close()
+		/// </summary>
+		[HarmonyPatch(MethodType.Constructor, new Type[] { typeof(Ideo), typeof(MemeCategory), typeof(bool), typeof(Action), typeof(List<MemeDef>), typeof(bool) })]
+		[HarmonyPostfix]
+		public static void ConstructorPostfix()
+		{
+			limitedMemesCache = null;
+		}
 
 		/// <summary>
 		/// Capture meme category for <see cref="ModWidgets.RerollButton(Rect, string, bool, bool, bool, TextAnchor?)"/>
@@ -57,6 +69,14 @@ namespace IdeoReformLimited.Patches
 		{
 			if (!___ideo.Fluid || !___reformingIdeo)
 			{
+				return;
+			}
+
+			if (limitedMemesCache != null)
+			{
+				// Game forces pause when this dialog is open, so this should be ok
+				memes.Clear();
+				memes.AddRange(limitedMemesCache);
 				return;
 			}
 
@@ -122,6 +142,17 @@ namespace IdeoReformLimited.Patches
 			}
 
 			memes = finalSelectedMemes;
+			limitedMemesCache = finalSelectedMemes;
+		}
+
+		/// <summary>
+		/// The closest I can find to a Close() method. Doesn't run on exit without reform
+		/// </summary>
+		[HarmonyPatch("DoAcceptChanges")]
+		[HarmonyPostfix]
+		public static void PostClosePostfix()
+		{
+			limitedMemesCache = null;
 		}
 	}
 }

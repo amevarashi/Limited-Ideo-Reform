@@ -29,12 +29,12 @@ namespace IdeoReformLimited
 				if (!foundLabel)
 				{
 					// Find operation that puts labelKey string onto the stack
-					if (enumerator.Current.opcode == OpCodes.Ldstr && enumerator.Current.operand as string == labelKey)
+					if (enumerator.Current.Is(OpCodes.Ldstr, labelKey))
 					{
 						foundLabel = true;
 					}
 				}
-				else if (enumerator.Current.opcode == OpCodes.Call && enumerator.Current.operand as MethodInfo == buttonText)
+				else if (enumerator.Current.Calls(buttonText))
 				{
 					// Replace next button call with the given method
 					enumerator.Current.operand = buttonReplacement;
@@ -44,6 +44,8 @@ namespace IdeoReformLimited
 
 				yield return enumerator.Current;
 			}
+
+			Log.Error($"[LimitedIdeoReform] Failed to transpile \"{labelKey}\" button replacement");
 		}
 	}
 }
