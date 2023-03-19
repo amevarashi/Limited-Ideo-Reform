@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -61,7 +62,7 @@ namespace IdeoReformLimited.Patches
 
 			List<MemeDef> memesPlayerHave = new List<MemeDef>();
 			List<MemeDef> memesCanBeAdded = new List<MemeDef>();
-			List<MemeDef> finalSelectedMemes = new List<MemeDef>();
+			HashSet<string> exclusionTags = ___ideo.memes.SelectMany(x => x.exclusionTags).Distinct().ToHashSet();
 
 			foreach (MemeDef meme in memes)
 			{
@@ -69,11 +70,13 @@ namespace IdeoReformLimited.Patches
 				{
 					memesPlayerHave.Add(meme);
 				}
-				else
+				else if (!meme.exclusionTags.Any(tag => exclusionTags.Contains(tag)))
 				{
 					memesCanBeAdded.Add(meme);
 				}
 			}
+
+			List<MemeDef> finalSelectedMemes = new List<MemeDef>();
 
 			if (memesPlayerHave.Count >= Core.MaxMemeCount)
 			{
