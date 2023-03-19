@@ -39,7 +39,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Core.cs" />
-    <Compile Include="Debug.cs" />
     <Compile Include="GameComponent_RerollTracker.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ModWidgets.cs" />
