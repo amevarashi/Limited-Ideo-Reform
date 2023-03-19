@@ -12,7 +12,6 @@ namespace IdeoReformLimited.Patches
 	public static class Patch_Dialog_ChooseMemes
 	{
 		private static List<MemeDef> limitedMemesCache;
-		public static List<Precept> LimitedPreceptsCache { get; set; }
 		public static MemeCategory CurrentMemeCategory { get; private set; }
 
 		/// <summary>
@@ -23,7 +22,6 @@ namespace IdeoReformLimited.Patches
 		public static void ConstructorPostfix()
 		{
 			limitedMemesCache = null;
-			LimitedPreceptsCache = null;
 		}
 
 		/// <summary>
@@ -155,7 +153,6 @@ namespace IdeoReformLimited.Patches
 		public static void PostClosePostfix()
 		{
 			limitedMemesCache = null;
-			LimitedPreceptsCache = null;
 		}
 	}
 }

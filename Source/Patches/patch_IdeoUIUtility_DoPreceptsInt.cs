@@ -134,15 +134,6 @@ namespace IdeoReformLimited.Patches
 				return;
 			}
 
-			// Tests shown that caching is borderline useless, but the fact that the window rolls every frame bothered me
-			if (Patch_Dialog_ChooseMemes.LimitedPreceptsCache != null)
-			{
-				// Game forces pause when this dialog is open, so this should be ok
-				TmpPrecepts.Clear();
-				TmpPrecepts.AddRange(Patch_Dialog_ChooseMemes.LimitedPreceptsCache);
-				return;
-			}
-
 			List<Precept> preceptPool = TmpPrecepts.OrderBy(a => a.def.defName).ToList();
 			TmpPrecepts.Clear();
 
@@ -158,8 +149,6 @@ namespace IdeoReformLimited.Patches
 					break;
 				}
 			}
-
-			Patch_Dialog_ChooseMemes.LimitedPreceptsCache = new List<Precept>(TmpPrecepts);
 		}
 	}
 }
