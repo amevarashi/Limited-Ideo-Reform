@@ -7,7 +7,7 @@ using Verse;
 namespace IdeoReformLimited.Patches
 {
 	[HarmonyPatch(typeof(Dialog_ChooseMemes))]
-	public static class patch_Dialog_ChooseMemes
+	public static class Patch_Dialog_ChooseMemes
 	{
 		public static MemeCategory CurrentMemeCategory { get; private set; }
 
@@ -21,7 +21,6 @@ namespace IdeoReformLimited.Patches
 		{
 			CurrentMemeCategory = ___memeCategory;
 		}
-
 
 		/// <summary>
 		/// Replace "Randomize" button with a "Reroll" one
@@ -76,10 +75,10 @@ namespace IdeoReformLimited.Patches
 				}
 			}
 
-			if (memesPlayerHave.Count >= Core.val_maxMemeCount)
+			if (memesPlayerHave.Count >= Core.MaxMemeCount)
 			{
 				// If at max possible memes, only show memes to remove
-				for (int i = 0; i < Mathf.Max(2, Mathf.FloorToInt(Core.val_maxMemeCount * 0.25f)); i++)
+				for (int i = 0; i < Mathf.Max(2, Mathf.FloorToInt(Core.MaxMemeCount * 0.25f)); i++)
 				{
 					MemeDef meme = memesPlayerHave[Rand.RangeSeeded(0, memesPlayerHave.Count, Core.Seed)];
 					memesPlayerHave.Remove(meme);
@@ -90,9 +89,9 @@ namespace IdeoReformLimited.Patches
 			}
 			else
 			{
-				float removeCount = Mathf.Min(memesPlayerHave.Count * 0.25f, Core.val_memeSelectCount * 0.25f);
+				float removeCount = Mathf.Min(memesPlayerHave.Count * 0.25f, Core.NumberOfMemesToChooseFromOnReform * 0.25f);
 
-				for (int i = 0; i < Core.val_memeSelectCount; i++)
+				for (int i = 0; i < Core.NumberOfMemesToChooseFromOnReform; i++)
 				{
 					MemeDef meme;
 					if (removeCount >= 1f)

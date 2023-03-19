@@ -10,7 +10,7 @@ using Verse;
 namespace IdeoReformLimited.Patches
 {
 	[HarmonyPatch(typeof(IdeoUIUtility), "DoPreceptsInt")]
-	internal static class patch_IdeoUIUtility_DoPreceptsInt
+	internal static class Patch_IdeoUIUtility_DoPreceptsInt
 	{
 		public static bool DoLimit { get; private set; }
 		public static List<Precept> TmpPrecepts { get; private set; }
@@ -61,7 +61,7 @@ namespace IdeoReformLimited.Patches
 		/// <returns>Processed code instructions</returns>
 		private static IEnumerable<CodeInstruction> InjectPreceptLimiter(IEnumerator<CodeInstruction> enumerator)
 		{
-			MethodInfo newMethod = AccessTools.Method(typeof(patch_IdeoUIUtility_DoPreceptsInt), nameof(patch_IdeoUIUtility_DoPreceptsInt.LimitPrecepts));
+			MethodInfo newMethod = AccessTools.Method(typeof(Patch_IdeoUIUtility_DoPreceptsInt), nameof(Patch_IdeoUIUtility_DoPreceptsInt.LimitPrecepts));
 			bool injected = false;
 			CodeInstruction[] peeked = new CodeInstruction[6];
 
@@ -137,7 +137,7 @@ namespace IdeoReformLimited.Patches
 			List<Precept> preceptPool = TmpPrecepts.OrderBy(a => a.def.defName).ToList();
 			TmpPrecepts.Clear();
 
-			int count = Mathf.Min(preceptPool.Count, Core.val_preceptSelectCount);
+			int count = Mathf.Min(preceptPool.Count, Core.NumberOfPreceptsToChooseFromOnReform);
 
 			for (int i = 0; i < count; i++)
 			{

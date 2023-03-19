@@ -4,7 +4,7 @@ using RimWorld;
 namespace IdeoReformLimited.Patches
 {
 	[HarmonyPatch(typeof(IdeoDevelopmentTracker))]
-	public static class patch_IdeoDevelopmentTracker
+	public static class Patch_IdeoDevelopmentTracker
 	{
 		/// <summary>
 		/// Replace original getter with our implementation
@@ -16,7 +16,7 @@ namespace IdeoReformLimited.Patches
 		[HarmonyPrefix]
 		public static bool RedefineNextReformationDevelopmentPoints(IdeoDevelopmentTracker __instance, ref int __result)
 		{
-			__result = Core.val_needPointReform + (__instance.reformCount * Core.val_needPointReformStep);
+			__result = Core.PointsForTheFirstReform + (__instance.reformCount * Core.PointsIncrementPerReform);
 			return false;
 		}
 

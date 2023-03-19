@@ -22,12 +22,12 @@ namespace IdeoReformLimited
 		/// </summary>
 		public static bool RerollButton(Rect rect, string label, bool drawBackground = true, bool doMouseoverSound = true, bool active = true, TextAnchor? overrideTextAnchor = null)
 		{
-			if (!InGameWithFluidIdeo || Patches.patch_Dialog_ChooseMemes.CurrentMemeCategory == RimWorld.MemeCategory.Structure)
+			if (!InGameWithFluidIdeo || Patches.Patch_Dialog_ChooseMemes.CurrentMemeCategory == RimWorld.MemeCategory.Structure)
 			{
 				return Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active, overrideTextAnchor);
 			}
 
-			int rerollsLeft = Core.val_rerollsPerStage - Core.RerollTracker.CurrentStageRerolls;
+			int rerollsLeft = Core.MaxRerollsPerReform - Core.RerollTracker.CurrentStageRerolls;
 
 			if (Widgets.ButtonText(rect, "LIR_Reroll".Translate(rerollsLeft), drawBackground, doMouseoverSound, rerollsLeft > 0, overrideTextAnchor))
 			{
@@ -39,7 +39,7 @@ namespace IdeoReformLimited
 		}
 
 		/// <summary>
-		/// Check if player has any fluid ideo and we are currently not creating a new one
+		/// Check if player has any fluid ideo and we are currently in game
 		/// </summary>
 		private static bool InGameWithFluidIdeo => Find.FactionManager.OfPlayer.ideos?.FluidIdeo != null && Current.ProgramState == ProgramState.Playing;
 	}

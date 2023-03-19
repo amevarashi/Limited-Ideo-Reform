@@ -9,7 +9,7 @@ namespace IdeoReformLimited
 
 		public int CurrentStageRerolls => currentStageRerolls;
 
-		public GameComponent_RerollTracker(Game game)
+		public GameComponent_RerollTracker(Game _)
 		{
 		}
 
