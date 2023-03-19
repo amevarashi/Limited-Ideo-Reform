@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ModMetaData>
-  <name>Limited Ideo Reform</name>
-  <author>YAYO</author>
-  <supportedVersions>
-  	<li>1.4</li>
-  </supportedVersions>
+	<name>Limited Ideo Reform (Continued)</name>
+	<authors>
+		<li>YAYO</li>
+		<li>amevarashi</li>
+	</authors>
+	<supportedVersions>
+		<li>1.4</li>
+	</supportedVersions>
 	<packageId>com.yayo.ideoReformLimited</packageId>
 	<loadAfter>
 		<li>Ludeon.RimWorld.Ideology</li>
@@ -27,7 +30,7 @@
 			<displayName>Ideology</displayName>
 		</li>
 	</modDependencies>
-  <description>Original mod by YAYO! This is an update. You can find the original here:
+	<description>Original mod by YAYO! This is an update. You can find the original here:
 https://steamcommunity.com/sharedfiles/filedetails/?id=2636928109
 
 # Only works in ideology "Fluid Type".
