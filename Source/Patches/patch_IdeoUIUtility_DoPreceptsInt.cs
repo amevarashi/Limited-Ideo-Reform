@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using UnityEngine;
 using Verse;
 
 namespace IdeoReformLimited.Patches
@@ -35,7 +34,7 @@ namespace IdeoReformLimited.Patches
 		/// <returns>Modified method body</returns>
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			IEnumerator<CodeInstruction> enumerator = instructions.GetEnumerator();
+			using IEnumerator<CodeInstruction> enumerator = instructions.GetEnumerator();
 
 			foreach (CodeInstruction instruction in InjectPreceptLimiter(enumerator))
 			{
@@ -137,18 +136,48 @@ namespace IdeoReformLimited.Patches
 			List<Precept> preceptPool = TmpPrecepts.OrderBy(a => a.def.defName).ToList();
 			TmpPrecepts.Clear();
 
-			int count = Mathf.Min(preceptPool.Count, Core.NumberOfPreceptsToChooseFromOnReform);
-
-			for (int i = 0; i < count; i++)
+			while (TmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
 			{
 				Precept tmp = preceptPool[Rand.RangeSeeded(0, preceptPool.Count, Core.Seed)];
-				TmpPrecepts.Add(tmp);
 				preceptPool.Remove(tmp);
-				if (preceptPool.Count == 0)
+				if (!Core.SkipUneditablePrecepts || CanBeEdited(tmp))
 				{
-					break;
+					TmpPrecepts.Add(tmp);
 				}
 			}
+
+			TmpPrecepts.SortByDescending(x => (int)x.def.impact);
+		}
+
+		/// <summary>
+		/// This method attempts to repeat Precept.DrawPreceptBox logic for collecting FloatMenuOptions but in boolean
+		/// </summary>
+		private static bool CanBeEdited(Precept precept)
+		{
+			return CanBeRemoved(precept) || CanBeChanged(precept);
+		}
+
+		private static bool CanBeRemoved(Precept precept)
+		{
+			if (!precept.def.canRemoveInUI || precept.def.issue.HasDefaultPrecept)
+			{
+				return false;
+			}
+
+			if (precept.ideo.GetMemeThatRequiresPrecept(precept.def) != null)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		private static bool CanBeChanged(Precept precept)
+		{
+			return DefDatabase<PreceptDef>.AllDefs.Any(x =>
+				x.issue == precept.def.issue &&
+				x != precept.def &&
+				IdeoUIUtility.CanListPrecept(precept.ideo, x, IdeoEditMode.Reform));
 		}
 	}
 }

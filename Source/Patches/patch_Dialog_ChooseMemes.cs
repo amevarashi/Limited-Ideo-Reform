@@ -44,7 +44,7 @@ namespace IdeoReformLimited.Patches
 		[HarmonyTranspiler]
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			IEnumerator<CodeInstruction> enumerator = instructions.GetEnumerator();
+			using IEnumerator<CodeInstruction> enumerator = instructions.GetEnumerator();
 
 			foreach (CodeInstruction instruction in TransplierHelpers.FindAndReplaceButton(enumerator, "Randomize", nameof(ModWidgets.RerollButton)))
 			{

@@ -20,6 +20,7 @@ namespace IdeoReformLimited
 		public static SettingHandle<int> MaxMemeCount { get; private set; }
 		public static SettingHandle<int> NumberOfMemesToChooseFromOnReform { get; private set; }
 		public static SettingHandle<int> NumberOfPreceptsToChooseFromOnReform { get; private set; }
+		public static SettingHandle<bool> SkipUneditablePrecepts { get; private set; }
 		public static SettingHandle<int> MaxRerollsPerReform { get; private set; }
 
 		public override void DefsLoaded()
@@ -29,6 +30,7 @@ namespace IdeoReformLimited
 			MaxMemeCount = Settings.GetHandle("val_maxMemeCount", "val_maxMemeCount_t".Translate(), "val_maxMemeCount_d".Translate(), 5, Validators.IntRangeValidator(0, 10000));
 			NumberOfMemesToChooseFromOnReform = Settings.GetHandle("val_memeSelectCount", "val_memeSelectCount_t".Translate(), "val_memeSelectCount_d".Translate(), 4, Validators.IntRangeValidator(0, 10000));
 			NumberOfPreceptsToChooseFromOnReform = Settings.GetHandle("val_preceptSelectCount", "val_preceptSelectCount_t".Translate(), "val_preceptSelectCount_d".Translate(), 3, Validators.IntRangeValidator(0, 10000));
+			SkipUneditablePrecepts = Settings.GetHandle("SkipUneditablePrecepts", "LIR_SkipUneditablePrecepts_t".Translate(), "LIR_SkipUneditablePrecepts_d".Translate(), true);
 			MaxRerollsPerReform = Settings.GetHandle("val_rerollsPerStage", "val_rerollsPerStage_t".Translate(), "val_rerollsPerStage_d".Translate(), 1, Validators.IntRangeValidator(0, 10000));
 			SetupFirst();
 		}
