@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System;
 
 namespace IdeoReformLimited.Patches
 {
@@ -16,7 +17,9 @@ namespace IdeoReformLimited.Patches
 		[HarmonyPrefix]
 		public static bool RedefineNextReformationDevelopmentPoints(IdeoDevelopmentTracker __instance, ref int __result)
 		{
-			__result = Core.PointsForTheFirstReform + (__instance.reformCount * Core.PointsIncrementPerReform);
+			__result = Math.Min(
+				Core.PointsForTheFirstReform + (__instance.reformCount * Core.PointsIncrementPerReform),
+				Core.MaxPointsForReform);
 			return false;
 		}
 

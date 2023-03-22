@@ -5,12 +5,15 @@
 
   <val_needPointReformStep_t>Point Increment per reform</val_needPointReformStep_t>
   <val_needPointReformStep_d>Adjusts the amount of points needed to increase with each reform.</val_needPointReformStep_d>
+
+  <LIR_MaxPointsForReform_t>Maximum points for a reform</LIR_MaxPointsForReform_t>
+  <LIR_MaxPointsForReform_d>A reform will never cost more than this setting.</LIR_MaxPointsForReform_d>
   
   <val_maxMemeCount_t>Maximum number of memes</val_maxMemeCount_t>
   <val_maxMemeCount_d>This is the maximum number of memes an ideology can have.</val_maxMemeCount_d>
 
   <val_memeSelectCount_t>Number of memes when reform</val_memeSelectCount_t>
-  <val_memeSelectCount_d>The number of memes that appear randomly as during ideological reform.</val_memeSelectCount_d>
+  <val_memeSelectCount_d>The number of random memes to select from during the ideological reform.</val_memeSelectCount_d>
 
   <val_preceptSelectCount_t>Number of modifiable precepts</val_preceptSelectCount_t>
   <val_preceptSelectCount_d>During ideological reform, the number of modifiable Precepts displayed at random.</val_preceptSelectCount_d>
