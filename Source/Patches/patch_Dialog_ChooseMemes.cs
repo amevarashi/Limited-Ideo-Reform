@@ -154,5 +154,10 @@ namespace IdeoReformLimited.Patches
 		{
 			limitedMemesCache = null;
 		}
+
+		public static void NotifyReroll()
+		{
+			limitedMemesCache = null;
+		}
 	}
 }

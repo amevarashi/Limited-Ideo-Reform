@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using IdeoReformLimited.Patches;
+using RimWorld;
 using Verse;
 
 namespace IdeoReformLimited
@@ -16,6 +17,7 @@ namespace IdeoReformLimited
 		public void NotifyReroll()
 		{
 			currentStageRerolls++;
+			Patch_Dialog_ChooseMemes.NotifyReroll();
 		}
 
 		public void NotifyIdeoReformed(Ideo ideo)
