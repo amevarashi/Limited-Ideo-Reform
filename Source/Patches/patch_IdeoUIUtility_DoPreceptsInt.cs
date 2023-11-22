@@ -11,19 +11,15 @@ namespace IdeoReformLimited.Patches
 	[HarmonyPatch(typeof(IdeoUIUtility), "DoPreceptsInt")]
 	internal static class Patch_IdeoUIUtility_DoPreceptsInt
 	{
-		public static bool DoLimit { get; private set; }
-		public static List<Precept> TmpPrecepts { get; private set; }
+		private static List<Precept> _tmpPrecepts;
 
 		/// <summary>
 		/// Capture some parameters here to bypass adding stack manipulations in the transpiler
 		/// </summary>
-		/// <param name="mainPrecepts">Method id called for the main precepts. As opposed to closing/ritual/etc</param>
-		/// <param name="editMode">What king of edit is happening</param>
 		/// <param name="___tmpPrecepts">Reference to a static field used by DoPreceptsInt to collect precepts for output</param>
-		public static void Prefix(bool mainPrecepts, IdeoEditMode editMode, ref List<Precept> ___tmpPrecepts)
+		public static void Prefix(ref List<Precept> ___tmpPrecepts)
 		{
-			DoLimit = (editMode == IdeoEditMode.Reform && mainPrecepts);
-			TmpPrecepts = ___tmpPrecepts;
+			_tmpPrecepts = ___tmpPrecepts;
 		}
 
 		/// <summary>
@@ -60,7 +56,7 @@ namespace IdeoReformLimited.Patches
 		/// <returns>Processed code instructions</returns>
 		private static IEnumerable<CodeInstruction> InjectPreceptLimiter(IEnumerator<CodeInstruction> enumerator)
 		{
-			MethodInfo newMethod = AccessTools.Method(typeof(Patch_IdeoUIUtility_DoPreceptsInt), nameof(Patch_IdeoUIUtility_DoPreceptsInt.LimitPrecepts));
+			MethodInfo limitPrecepts = AccessTools.Method(typeof(Patch_IdeoUIUtility_DoPreceptsInt), nameof(LimitPrecepts));
 			bool injected = false;
 			CodeInstruction[] peeked = new CodeInstruction[6];
 
@@ -104,8 +100,10 @@ namespace IdeoReformLimited.Patches
 					peeked[4].opcode == OpCodes.Brtrue_S &&
 					peeked[5].opcode == OpCodes.Ret)
 				{
+					yield return new CodeInstruction(OpCodes.Ldarg_2); // Load mainPrecept argument
+					yield return new CodeInstruction(OpCodes.Ldarg_S, 4); // Load editMode argument
+					yield return new CodeInstruction(OpCodes.Call, limitPrecepts);
 					injected = true;
-					yield return new CodeInstruction(OpCodes.Call, newMethod);
 				}
 
 				// Again, don't forget to return all of the peeked operators
@@ -126,27 +124,29 @@ namespace IdeoReformLimited.Patches
 		/// <summary>
 		/// Apply random filter to the static list
 		/// </summary>
-		public static void LimitPrecepts()
+		/// <param name="mainPrecepts">Method id called for the main precepts. As opposed to closing/ritual/etc</param>
+		/// <param name="editMode">What king of edit is happening</param>
+		public static void LimitPrecepts(bool mainPrecepts, IdeoEditMode editMode)
 		{
-			if (!DoLimit)
+			if (!(editMode == IdeoEditMode.Reform && mainPrecepts))
 			{
 				return;
 			}
 
-			List<Precept> preceptPool = TmpPrecepts.OrderBy(a => a.def.defName).ToList();
-			TmpPrecepts.Clear();
+			List<Precept> preceptPool = _tmpPrecepts.OrderBy(a => a.def.defName).ToList();
+			_tmpPrecepts.Clear();
 
-			while (TmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
+			while (_tmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
 			{
 				Precept tmp = preceptPool[Rand.RangeSeeded(0, preceptPool.Count, Core.Seed)];
 				preceptPool.Remove(tmp);
 				if (!Core.SkipUneditablePrecepts || CanBeEdited(tmp))
 				{
-					TmpPrecepts.Add(tmp);
+					_tmpPrecepts.Add(tmp);
 				}
 			}
 
-			TmpPrecepts.SortByDescending(x => (int)x.def.impact);
+			_tmpPrecepts.SortByDescending(x => (int)x.def.impact);
 		}
 
 		/// <summary>
