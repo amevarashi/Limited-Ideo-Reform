@@ -11,17 +11,6 @@ namespace IdeoReformLimited.Patches
 	[HarmonyPatch(typeof(IdeoUIUtility), "DoPreceptsInt")]
 	internal static class Patch_IdeoUIUtility_DoPreceptsInt
 	{
-		private static List<Precept> _tmpPrecepts;
-
-		/// <summary>
-		/// Capture some parameters here to bypass adding stack manipulations in the transpiler
-		/// </summary>
-		/// <param name="___tmpPrecepts">Reference to a static field used by DoPreceptsInt to collect precepts for output</param>
-		public static void Prefix(ref List<Precept> ___tmpPrecepts)
-		{
-			_tmpPrecepts = ___tmpPrecepts;
-		}
-
 		/// <summary>
 		/// Inject PreceptLimiter call.
 		/// Replace "RandomizePrecepts" button with the one that will hide itself if idelolgy is fluid
@@ -102,6 +91,7 @@ namespace IdeoReformLimited.Patches
 				{
 					yield return new CodeInstruction(OpCodes.Ldarg_2); // Load mainPrecept argument
 					yield return new CodeInstruction(OpCodes.Ldarg_S, 4); // Load editMode argument
+					yield return CodeInstruction.LoadField(typeof(IdeoUIUtility), "tmpPrecepts");
 					yield return new CodeInstruction(OpCodes.Call, limitPrecepts);
 					injected = true;
 				}
@@ -126,27 +116,28 @@ namespace IdeoReformLimited.Patches
 		/// </summary>
 		/// <param name="mainPrecepts">Method id called for the main precepts. As opposed to closing/ritual/etc</param>
 		/// <param name="editMode">What king of edit is happening</param>
-		public static void LimitPrecepts(bool mainPrecepts, IdeoEditMode editMode)
+		/// <param name="tmpPrecepts">Reference to a static field used by DoPreceptsInt to collect precepts for output</param>
+		public static void LimitPrecepts(bool mainPrecepts, IdeoEditMode editMode, List<Precept> tmpPrecepts)
 		{
 			if (!(editMode == IdeoEditMode.Reform && mainPrecepts))
 			{
 				return;
 			}
 
-			List<Precept> preceptPool = _tmpPrecepts.OrderBy(a => a.def.defName).ToList();
-			_tmpPrecepts.Clear();
+			List<Precept> preceptPool = tmpPrecepts.OrderBy(a => a.def.defName).ToList();
+			tmpPrecepts.Clear();
 
-			while (_tmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
+			while (tmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
 			{
 				Precept tmp = preceptPool[Rand.RangeSeeded(0, preceptPool.Count, Core.Seed)];
 				preceptPool.Remove(tmp);
 				if (!Core.SkipUneditablePrecepts || CanBeEdited(tmp))
 				{
-					_tmpPrecepts.Add(tmp);
+					tmpPrecepts.Add(tmp);
 				}
 			}
 
-			_tmpPrecepts.SortByDescending(x => (int)x.def.impact);
+			tmpPrecepts.SortByDescending(x => (int)x.def.impact);
 		}
 
 		/// <summary>
