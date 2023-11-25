@@ -18,13 +18,19 @@ namespace IdeoReformLimited
 		}
 
 		/// <summary>
-		/// If player is using fluid ideology, does reroll button instead whatever game have passed
+		/// If player is using fluid ideology, do reroll button instead of whatever game have passed
 		/// </summary>
 		public static bool RerollButton(Rect rect, string label, bool drawBackground = true, bool doMouseoverSound = true, bool active = true, TextAnchor? overrideTextAnchor = null)
 		{
 			if (!InGameWithFluidIdeo || Patches.Patch_Dialog_ChooseMemes.CurrentMemeCategory == RimWorld.MemeCategory.Structure)
 			{
 				return Widgets.ButtonText(rect, label, drawBackground, doMouseoverSound, active, overrideTextAnchor);
+			}
+
+			if (Core.MaxRerollsPerReform == 0)
+			{
+				// Do not display the button if rerolling is disabled in the settings
+				return false;
 			}
 
 			int rerollsLeft = Core.MaxRerollsPerReform - Core.RerollTracker.CurrentStageRerolls;
@@ -34,7 +40,7 @@ namespace IdeoReformLimited
 				Core.RerollTracker.NotifyReroll();
 			}
 
-			// It is "inside" another button, remember? =)
+			// It is "inside" another button, remember? Skip original button press code
 			return false;
 		}
 
