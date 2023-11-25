@@ -124,16 +124,38 @@ namespace IdeoReformLimited.Patches
 				return;
 			}
 
+			HashSet<IssueDef> limitedIssues = Core.ReformIdeoDialogContext.limitedPreceptIssues;
+
+			if (limitedIssues.Count != 0)
+			{
+				for(int i = tmpPrecepts.Count - 1; i >= 0; i--)
+				{
+					if (!limitedIssues.Contains(tmpPrecepts[i].def.issue)){
+						tmpPrecepts.RemoveAt(i);
+					}
+				}
+				return;
+			}
+
 			List<Precept> preceptPool = tmpPrecepts.OrderBy(a => a.def.defName).ToList();
 			tmpPrecepts.Clear();
 
 			while (tmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
 			{
-				Precept tmp = preceptPool[Rand.RangeSeeded(0, preceptPool.Count, Core.Seed)];
-				preceptPool.Remove(tmp);
+				int randomIndex = Rand.RangeSeeded(0, preceptPool.Count, Core.Seed);
+				Precept tmp = preceptPool[randomIndex];
+				preceptPool.RemoveAt(randomIndex);
 				if (!Core.SkipUneditablePrecepts || CanBeEdited(tmp))
 				{
 					tmpPrecepts.Add(tmp);
+				}
+			}
+
+			for(int i = tmpPrecepts.Count - 1; i >= 0; i--)
+			{
+				IssueDef issueDef = tmpPrecepts[i].def.issue;
+				if (!limitedIssues.Contains(issueDef)){
+					limitedIssues.Add(issueDef);
 				}
 			}
 

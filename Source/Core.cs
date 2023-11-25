@@ -15,6 +15,11 @@ namespace IdeoReformLimited
 		public static GameComponent_RerollTracker RerollTracker { get; private set; }
 		public static int Seed => Find.FactionManager.OfPlayer.ideos.PrimaryIdeo.development.reformCount + Find.World.ConstantRandSeed + CurrentStageRerolls;
 
+		/// <summary>
+		/// This should exist only when reform dialog is open
+		/// </summary>
+		public static ReformIdeoDialogContext ReformIdeoDialogContext { get; set; }
+
 		public static SettingHandle<int> PointsForTheFirstReform { get; private set; }
 		public static SettingHandle<int> PointsIncrementPerReform { get; private set; }
 		public static SettingHandle<int> MaxPointsForReform { get; private set; }

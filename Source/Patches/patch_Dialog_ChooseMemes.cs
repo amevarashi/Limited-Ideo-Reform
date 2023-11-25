@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,19 +10,6 @@ namespace IdeoReformLimited.Patches
 	[HarmonyPatch(typeof(Dialog_ChooseMemes))]
 	public static class Patch_Dialog_ChooseMemes
 	{
-		private static List<MemeDef> limitedMemesCache;
-		public static MemeCategory CurrentMemeCategory { get; private set; }
-
-		/// <summary>
-		/// Drop cache when new window created. Can't find a method to patch on close, this window doesn't override any [Pre/Post]Close()
-		/// </summary>
-		[HarmonyPatch(MethodType.Constructor, new Type[] { typeof(Ideo), typeof(MemeCategory), typeof(bool), typeof(Action), typeof(List<MemeDef>), typeof(bool) })]
-		[HarmonyPostfix]
-		public static void ConstructorPostfix()
-		{
-			limitedMemesCache = null;
-		}
-
 		/// <summary>
 		/// Capture meme category for <see cref="ModWidgets.RerollButton(Rect, string, bool, bool, bool, TextAnchor?)"/>
 		/// </summary>
@@ -32,7 +18,7 @@ namespace IdeoReformLimited.Patches
 		[HarmonyPrefix]
 		public static void DoWindowContentsPrefix(MemeCategory ___memeCategory)
 		{
-			CurrentMemeCategory = ___memeCategory;
+			Core.ReformIdeoDialogContext.CurrentMemeCategory = ___memeCategory;
 		}
 
 		/// <summary>
@@ -65,18 +51,19 @@ namespace IdeoReformLimited.Patches
 		/// <param name="___reformingIdeo">Is currently reforming ideology</param>
 		[HarmonyPatch("DoNormalMemeSelector")]
 		[HarmonyPrefix]
-		public static void DoNormalMemeSelectorPrefix(ref List<MemeDef> memes, Ideo ___ideo, bool ___reformingIdeo)
+		public static void DoNormalMemeSelectorPrefix(List<MemeDef> memes, Ideo ___ideo, bool ___reformingIdeo)
 		{
 			if (!___ideo.Fluid || !___reformingIdeo)
 			{
 				return;
 			}
 
-			if (limitedMemesCache != null)
+			if (Core.ReformIdeoDialogContext.limitedMemes.Count != 0)
 			{
 				// Game forces pause when this dialog is open, so this should be ok
+				// It was not. Forgot to crop cache after a reroll
 				memes.Clear();
-				memes.AddRange(limitedMemesCache);
+				memes.AddRange(Core.ReformIdeoDialogContext.limitedMemes);
 				return;
 			}
 
@@ -141,23 +128,9 @@ namespace IdeoReformLimited.Patches
 				}
 			}
 
-			memes = finalSelectedMemes;
-			limitedMemesCache = finalSelectedMemes;
-		}
-
-		/// <summary>
-		/// The closest I can find to a Close() method. Doesn't run on exit without reform
-		/// </summary>
-		[HarmonyPatch("DoAcceptChanges")]
-		[HarmonyPostfix]
-		public static void PostClosePostfix()
-		{
-			limitedMemesCache = null;
-		}
-
-		public static void NotifyReroll()
-		{
-			limitedMemesCache = null;
+			memes.Clear();
+			memes.AddRange(finalSelectedMemes);
+			Core.ReformIdeoDialogContext.limitedMemes.AddRange(finalSelectedMemes);
 		}
 	}
 }

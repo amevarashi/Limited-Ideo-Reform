@@ -32,6 +32,7 @@ namespace IdeoReformLimited.Patches
 		public static void NotifyIdeoReformed(IdeoDevelopmentTracker __instance)
 		{
 			Core.RerollTracker.NotifyIdeoReformed(__instance.ideo);
+			Core.ReformIdeoDialogContext = null;
 		}
 	}
 }
