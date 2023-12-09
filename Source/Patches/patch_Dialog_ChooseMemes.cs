@@ -18,7 +18,11 @@ namespace IdeoReformLimited.Patches
 		[HarmonyPrefix]
 		public static void DoWindowContentsPrefix(MemeCategory ___memeCategory)
 		{
-			Core.ReformIdeoDialogContext.CurrentMemeCategory = ___memeCategory;
+			// No context when creating ideo
+			if (Core.ReformIdeoDialogContext != null)
+			{
+				Core.ReformIdeoDialogContext.CurrentMemeCategory = ___memeCategory;
+			}
 		}
 
 		/// <summary>
