@@ -33,6 +33,12 @@ namespace IdeoReformLimited
 				return false;
 			}
 
+			if (Core.RerollTracker is null)
+			{
+				Log.Error("[LimitedIdeoReform] Called RerollButton with null RerollTracker");
+				return false;
+			}
+
 			int rerollsLeft = Core.MaxRerollsPerReform - Core.RerollTracker.CurrentStageRerolls;
 
 			if (Widgets.ButtonText(rect, "LIR_Reroll".Translate(rerollsLeft), drawBackground, doMouseoverSound, rerollsLeft > 0, overrideTextAnchor))

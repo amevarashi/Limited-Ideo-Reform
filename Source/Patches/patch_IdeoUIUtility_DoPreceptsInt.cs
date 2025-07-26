@@ -124,6 +124,12 @@ namespace IdeoReformLimited.Patches
 				return;
 			}
 
+			if (Core.ReformIdeoDialogContext is null)
+			{
+				Log.Error("[LimitedIdeoReform] Called LimitPrecepts with null ReformIdeoDialogContext");
+				return;
+			}
+
 			HashSet<IssueDef> limitedIssues = Core.ReformIdeoDialogContext.limitedPreceptIssues;
 
 			if (limitedIssues.Count != 0)

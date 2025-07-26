@@ -62,17 +62,23 @@ namespace IdeoReformLimited.Patches
 				return;
 			}
 
-			if (Core.ReformIdeoDialogContext.limitedMemes.Count != 0)
+			if (Core.ReformIdeoDialogContext is null)
 			{
-				// Game forces pause when this dialog is open, so this should be ok
-				// It was not. Forgot to crop cache after a reroll
-				memes.Clear();
-				memes.AddRange(Core.ReformIdeoDialogContext.limitedMemes);
+				Log.Error("[LimitedIdeoReform] Called DoNormalMemeSelectorPrefix with null ReformIdeoDialogContext");
 				return;
 			}
 
-			List<MemeDef> memesPlayerHave = new List<MemeDef>();
-			List<MemeDef> memesCanBeAdded = new List<MemeDef>();
+			if (Core.ReformIdeoDialogContext.limitedMemes.Count != 0)
+				{
+					// Game forces pause when this dialog is open, so this should be ok
+					// It was not. Forgot to drop cache after a reroll
+					memes.Clear();
+					memes.AddRange(Core.ReformIdeoDialogContext.limitedMemes);
+					return;
+				}
+
+			List<MemeDef> memesPlayerHave = [];
+			List<MemeDef> memesCanBeAdded = [];
 			HashSet<string> exclusionTags = ___ideo.memes.SelectMany(x => x.exclusionTags).Distinct().ToHashSet();
 
 			foreach (MemeDef meme in memes)

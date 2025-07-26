@@ -1,31 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetGameVersion>1.6</TargetGameVersion>
     <ProjectGuid>{4E6D396C-8607-4942-8ED2-AE43F37FF4CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IdeoReformLimited</RootNamespace>
     <AssemblyName>IdeoReformLimited</AssemblyName>
     <TargetFramework>net48</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-    <OutputPath>..\1.5\Assemblies\</OutputPath>
+    <LangVersion>12.0</LangVersion>
+    <OutputPath>..\$(TargetGameVersion)\Assemblies\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Optimize>True</Optimize>
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.5.*</Version>
+      <Version>$(TargetGameVersion).*</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
-      <Version>2.*</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="UnlimitedHugs.Rimworld.HugsLib">
-      <Version>11.*</Version>
+      <Version>*</Version>
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

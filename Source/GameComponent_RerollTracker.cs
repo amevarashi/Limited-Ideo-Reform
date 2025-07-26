@@ -24,6 +24,27 @@ namespace IdeoReformLimited
 			currentStageRerolls = 0;
 		}
 
+		public override void FinalizeInit()
+		{
+			base.FinalizeInit();
+			Core.RerollTracker = this;
+			Core.SetupFirst();
+		}
+
+		public override void LoadedGame()
+		{
+			base.LoadedGame();
+			Core.RerollTracker = this;
+			Core.SetupFirst();
+		}
+
+		public override void StartedNewGame()
+		{
+			base.StartedNewGame();
+			Core.RerollTracker = this;
+			Core.SetupFirst();
+		}
+
 		public override void ExposeData()
 		{
 			base.ExposeData();
