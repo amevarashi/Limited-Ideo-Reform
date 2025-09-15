@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <val_needPointReform_t>首次改革所需点数</val_needPointReform_t>
+  <val_needPointReform_d>这是进行第一次改革所需的点数。</val_needPointReform_d>
+
+  <val_needPointReformStep_t>每次改革的点数增量</val_needPointReformStep_t>
+  <val_needPointReformStep_d>调整每次改革所需点数的增长量。</val_needPointReformStep_d>
+
+  <LIR_MaxPointsForReform_t>单次改革最高点数限制</LIR_MaxPointsForReform_t>
+  <LIR_MaxPointsForReform_d>单次改革所需点数永远不会超过此设定值。</LIR_MaxPointsForReform_d>
+  
+  <val_maxMemeCount_t>模因最大数量</val_maxMemeCount_t>
+  <val_maxMemeCount_d>此为一个意识形态可拥有的模因数量上限。</val_maxMemeCount_d>
+
+  <val_memeSelectCount_t>改革时的模因可选数量</val_memeSelectCount_t>
+  <val_memeSelectCount_d>在进行意识形态改革时，随机提供的模因选项数量。</val_memeSelectCount_d>
+
+  <val_preceptSelectCount_t>可修改戒律数量</val_preceptSelectCount_t>
+  <val_preceptSelectCount_d>在意识形态改革期间，随机显示的可修改戒律数量。</val_preceptSelectCount_d>
+
+  <LIR_SkipUneditablePrecepts_t>跳过不可编辑的戒律</LIR_SkipUneditablePrecepts_t>
+  <LIR_SkipUneditablePrecepts_d>选择随机可修改戒律时，跳过无法修改的戒律。\n可能会跳过那些带有模组编辑选项的戒律。</LIR_SkipUneditablePrecepts_d>
+
+  <val_rerollsPerStage_t>每阶段可重roll次数</val_rerollsPerStage_t>
+  <val_rerollsPerStage_d>可用的模因重roll次数。成功的改革后会重置已消耗的重roll次数。</val_rerollsPerStage_d>
+
+  <LIR_Reroll>重掷 ({0})</LIR_Reroll>
+
+</LanguageData>
