@@ -33,7 +33,8 @@ namespace IdeoReformLimited
 		public static SettingHandle<int> MaxMemeCount => Settings!.MaxMemeCount;
 		public static SettingHandle<int> NumberOfMemesToChooseFromOnReform => Settings!.NumberOfMemesToChooseFromOnReform;
 		public static SettingHandle<int> NumberOfPreceptsToChooseFromOnReform => Settings!.NumberOfPreceptsToChooseFromOnReform;
-		public static SettingHandle<bool> SkipUneditablePrecepts => Settings!.SkipUneditablePrecepts;
+		public static SettingHandle<bool> AddRandomPreceptOnReform => Settings!.AddRandomPreceptOnReform;
+        public static SettingHandle<bool> SkipUneditablePrecepts => Settings!.SkipUneditablePrecepts;
 		public static SettingHandle<int> MaxRerollsPerReform => Settings!.MaxRerollsPerReform;
 
 		public static void SetupFirst()
@@ -61,7 +62,8 @@ namespace IdeoReformLimited
 			Settings!.MaxMemeCount.DoSetting(listing);
 			Settings!.NumberOfMemesToChooseFromOnReform.DoSetting(listing);
 			Settings!.NumberOfPreceptsToChooseFromOnReform.DoSetting(listing);
-			Settings!.SkipUneditablePrecepts.DoSetting(listing);
+			Settings!.AddRandomPreceptOnReform.DoSetting(listing);
+            Settings!.SkipUneditablePrecepts.DoSetting(listing);
 			Settings!.MaxRerollsPerReform.DoSetting(listing);
 			listing.End();
 

@@ -18,6 +18,9 @@
   <val_preceptSelectCount_t>Number of modifiable precepts</val_preceptSelectCount_t>
   <val_preceptSelectCount_d>During ideological reform, the number of modifiable Precepts displayed at random.</val_preceptSelectCount_d>
 
+  <LIR_AddRandomPreceptOnReform_t>Add a random precept on reform</LIR_AddRandomPreceptOnReform_t>
+  <LIR_AddRandomPreceptOnReform_d>After the reform completes, a random precept will be added.\nIt may be a very negative precept.</LIR_AddRandomPreceptOnReform_d>
+
   <LIR_SkipUneditablePrecepts_t>Skip uneditable precepts</LIR_SkipUneditablePrecepts_t>
   <LIR_SkipUneditablePrecepts_d>When choosing random modifiable precepts, skip precepts that cannot be modified.\nMay skip precepts with modded edit options.</LIR_SkipUneditablePrecepts_d>
 

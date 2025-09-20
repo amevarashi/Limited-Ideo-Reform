@@ -18,6 +18,9 @@
   <val_preceptSelectCount_t>可修改戒律数量</val_preceptSelectCount_t>
   <val_preceptSelectCount_d>在意识形态改革期间，随机显示的可修改戒律数量。</val_preceptSelectCount_d>
 
+  <LIR_AddRandomPreceptOnReform_t>改革随机增加一条戒律</LIR_AddRandomPreceptOnReform_t>
+  <LIR_AddRandomPreceptOnReform_d>改革完成后,会随机添加一条戒律。\n可能会添加到很负面的戒律。</LIR_AddRandomPreceptOnReform_d>
+
   <LIR_SkipUneditablePrecepts_t>跳过不可编辑的戒律</LIR_SkipUneditablePrecepts_t>
   <LIR_SkipUneditablePrecepts_d>选择随机可修改戒律时，跳过无法修改的戒律。\n可能会跳过那些带有模组编辑选项的戒律。</LIR_SkipUneditablePrecepts_d>
 
