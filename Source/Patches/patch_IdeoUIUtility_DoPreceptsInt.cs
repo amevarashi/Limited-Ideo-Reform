@@ -146,7 +146,23 @@ namespace IdeoReformLimited.Patches
 			List<Precept> preceptPool = tmpPrecepts.OrderBy(a => a.def.defName).ToList();
 			tmpPrecepts.Clear();
 
-			while (tmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
+			if (Core.AddRandomPreceptOnReform)
+            {
+                Ideo currentIdeo = preceptPool.FirstOrDefault().ideo;
+                var addCandidates = DefDatabase<PreceptDef>.AllDefsListForReading
+                    .Where(d => d.preceptClass == typeof(Precept))
+                    .Where(d => IdeoUIUtility.CanListPrecept(currentIdeo, d, editMode))
+                    .Where(d => !preceptPool.Any(p => p.def == d || p.def.issue == d.issue)).ToList();
+                if (addCandidates?.Count > 0)
+                {
+                    int randomIndex = Rand.RangeSeeded(0, addCandidates.Count, Core.Seed);
+                    PreceptDef chosen = addCandidates[randomIndex];
+                    Precept precept = PreceptMaker.MakePrecept(chosen);
+                    currentIdeo.AddPrecept(precept);
+                }
+            }
+
+            while (tmpPrecepts.Count < Core.NumberOfPreceptsToChooseFromOnReform && preceptPool.Count > 0)
 			{
 				int randomIndex = Rand.RangeSeeded(0, preceptPool.Count, Core.Seed);
 				Precept tmp = preceptPool[randomIndex];
