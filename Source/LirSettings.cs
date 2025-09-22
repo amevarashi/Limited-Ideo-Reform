@@ -10,8 +10,8 @@ namespace IdeoReformLimited
 		public SettingHandle<int> MaxMemeCount { get; private set; }
 		public SettingHandle<int> NumberOfMemesToChooseFromOnReform { get; private set; }
 		public SettingHandle<int> NumberOfPreceptsToChooseFromOnReform { get; private set; }
-        public SettingHandle<bool> AddRandomPreceptOnReform { get; private set; }
-        public SettingHandle<bool> SkipUneditablePrecepts { get; private set; }
+		public SettingHandle<bool> AddRandomPreceptOnReform { get; private set; }
+		public SettingHandle<bool> SkipUneditablePrecepts { get; private set; }
 		public SettingHandle<int> MaxRerollsPerReform { get; private set; }
 
 		public LirSettings()
@@ -22,8 +22,8 @@ namespace IdeoReformLimited
 			MaxMemeCount = new("maxMemeCount", "val_maxMemeCount_t", "val_maxMemeCount_d", 5, 0);
 			NumberOfMemesToChooseFromOnReform = new("memeSelectCount", "val_memeSelectCount_t", "val_memeSelectCount_d", 4, 0);
 			NumberOfPreceptsToChooseFromOnReform = new("preceptSelectCount", "val_preceptSelectCount_t", "val_preceptSelectCount_d", 3, 0);
-            AddRandomPreceptOnReform = new("AddRandomPreceptOnReform", "LIR_AddRandomPreceptOnReform_t", "LIR_AddRandomPreceptOnReform_d", true);
-            SkipUneditablePrecepts = new("SkipUneditablePrecepts", "LIR_SkipUneditablePrecepts_t", "LIR_SkipUneditablePrecepts_d", true);
+			AddRandomPreceptOnReform = new("AddRandomPreceptOnReform", "LIR_AddRandomPreceptOnReform_t", "LIR_AddRandomPreceptOnReform_d", true);
+			SkipUneditablePrecepts = new("SkipUneditablePrecepts", "LIR_SkipUneditablePrecepts_t", "LIR_SkipUneditablePrecepts_d", true);
 			MaxRerollsPerReform = new("rerollsPerStage", "val_rerollsPerStage_t", "val_rerollsPerStage_d", 1, 0);
 		}
 
@@ -35,8 +35,8 @@ namespace IdeoReformLimited
 			MaxMemeCount.Scribe();
 			NumberOfMemesToChooseFromOnReform.Scribe();
 			NumberOfPreceptsToChooseFromOnReform.Scribe();
-            AddRandomPreceptOnReform.Scribe();
-            SkipUneditablePrecepts.Scribe();
+			AddRandomPreceptOnReform.Scribe();
+			SkipUneditablePrecepts.Scribe();
 			MaxRerollsPerReform.Scribe();
 		}
 	}
