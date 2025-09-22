@@ -22,7 +22,7 @@ namespace IdeoReformLimited
 			MaxMemeCount = new("maxMemeCount", "val_maxMemeCount_t", "val_maxMemeCount_d", 5, 0);
 			NumberOfMemesToChooseFromOnReform = new("memeSelectCount", "val_memeSelectCount_t", "val_memeSelectCount_d", 4, 0);
 			NumberOfPreceptsToChooseFromOnReform = new("preceptSelectCount", "val_preceptSelectCount_t", "val_preceptSelectCount_d", 3, 0);
-			AddRandomPreceptOnReform = new("AddRandomPreceptOnReform", "LIR_AddRandomPreceptOnReform_t", "LIR_AddRandomPreceptOnReform_d", true);
+			AddRandomPreceptOnReform = new("AddRandomPreceptOnReform", "LIR_AddRandomPreceptOnReform_t", "LIR_AddRandomPreceptOnReform_d", false);
 			SkipUneditablePrecepts = new("SkipUneditablePrecepts", "LIR_SkipUneditablePrecepts_t", "LIR_SkipUneditablePrecepts_d", true);
 			MaxRerollsPerReform = new("rerollsPerStage", "val_rerollsPerStage_t", "val_rerollsPerStage_d", 1, 0);
 		}
