@@ -29,4 +29,7 @@
 
   <LIR_Reroll>Reroll ({0})</LIR_Reroll>
 
+  <LIR_AddedPreceptLabel>New precept</LIR_AddedPreceptLabel>
+  <LIR_AddedPreceptText>"{ISSUE}: {PRECEPT}" was added to the {IDEOLOGY}</LIR_AddedPreceptText>
+
 </LanguageData>

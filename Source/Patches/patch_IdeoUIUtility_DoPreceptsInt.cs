@@ -157,8 +157,8 @@ namespace IdeoReformLimited.Patches
 				if (addCandidates?.Count > 0)
 				{
 					int randomIndex = Rand.RangeSeeded(0, addCandidates.Count, Core.Seed);
-					PreceptDef chosen = addCandidates[randomIndex];
-					Precept precept = PreceptMaker.MakePrecept(chosen);
+					Core.ReformIdeoDialogContext.RandomAddedPrecept = addCandidates[randomIndex];
+					Precept precept = PreceptMaker.MakePrecept(Core.ReformIdeoDialogContext.RandomAddedPrecept);
 					currentIdeo.AddPrecept(precept);
 				}
 			}

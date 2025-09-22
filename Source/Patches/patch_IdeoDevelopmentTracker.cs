@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using RimWorld;
 using System;
+using Verse;
 
 namespace IdeoReformLimited.Patches
 {
@@ -32,6 +33,15 @@ namespace IdeoReformLimited.Patches
 		public static void NotifyIdeoReformed(IdeoDevelopmentTracker __instance)
 		{
 			Core.RerollTracker?.NotifyIdeoReformed(__instance.ideo);
+			if (Core.ReformIdeoDialogContext?.RandomAddedPrecept is PreceptDef addedDef)
+			{
+				TaggedString letterText = "LIR_AddedPreceptText".Translate(
+					addedDef.issue.LabelCap.Named("ISSUE"),
+					addedDef.LabelCap.Named("PRECEPT"),
+					__instance.ideo.name.Named("IDEOLOGY"));
+				Letter letter = LetterMaker.MakeLetter("LIR_AddedPreceptLabel".Translate(), letterText, LetterDefOf.NeutralEvent);
+				Find.LetterStack.ReceiveLetter(letter);
+			}
 			Core.ReformIdeoDialogContext = null;
 		}
 	}
